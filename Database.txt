@@ -1,0 +1,55 @@
+create database resolvenest;
+ use resolvenest;
+
+create table students(
+   student_id INT PRIMARY KEY ,    
+student_name VARCHAR(100), 
+   mobile_no VARCHAR(15),  
+  fathers_name VARCHAR(100),  
+  fathers_mobile_no VARCHAR(15),   
+ address VARCHAR(255), 
+   email VARCHAR(100) UNIQUE,    
+password VARCHAR(255),    
+room_number INT,  
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+ CREATE TABLE roles (    role_id INT PRIMARY KEY AUTO_INCREMENT,    role_name VARCHAR(100) UNIQUE);
+
+CREATE TABLE employees (    employee_id INT PRIMARY KEY AUTO_INCREMENT,    employee_name VARCHAR(100),    mobile_no VARCHAR(15),    email VARCHAR(100) UNIQUE,    password VARCHAR(255),    role_id INT,    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    FOREIGN KEY (role_id) REFERENCES roles(role_id));
+
+
+CREATE TABLE status_codes (    status_code INT PRIMARY KEY AUTO_INCREMENT,    status_name VARCHAR(100) UNIQUE);
+
+ CREATE TABLE issues (    issue_id INT PRIMARY KEY AUTO_INCREMENT,    student_id INT,    issue_title VARCHAR(255),    issue_description TEXT,    status_code INT,    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    FOREIGN KEY (student_id) REFERENCES students(student_id),    FOREIGN KEY (status_code) REFERENCES status_codes(status_code));
+
+
+mysql> CREATE TABLE report_status (    report_status_id INT PRIMARY KEY AUTO_INCREMENT,    issue_id INT,    employee_id INT,    status_code INT,    status_change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    FOREIGN KEY (issue_id) REFERENCES issues(issue_id),    FOREIGN KEY (employee_id) REFERENCES employees(employee_id),    FOREIGN KEY (status_code) REFERENCES status_codes(status_code));
+
+
+ CREATE TABLE issue_comments (    comment_id INT PRIMARY KEY AUTO_INCREMENT,    issue_id INT,    employee_id INT,    comment_text TEXT,    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    FOREIGN KEY (issue_id) REFERENCES issues(issue_id),    FOREIGN KEY (employee_id) REFERENCES employees(employee_id));
+
+CREATE TABLE attachments (    attachment_id INT PRIMARY KEY AUTO_INCREMENT,    issue_id INT,    file_path VARCHAR(255),    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    FOREIGN KEY (issue_id) REFERENCES issues(issue_id));
+
+INSERT INTO roles (role_name) VALUES('Warden'),('Chief Warden'),('VC'),('Registrar');
+
+ INSERT INTO status_codes (status_code, status_name) VALUES
+(1, 'PENDING'),
+(2,'RESOLVED BY WARDEN')'
+(3, 'RESOLVED BY CHIEF WARDEN'),
+(4, 'RESOLVED BY VC'),
+(5, 'RESOLVED BY REGISTRAR'),
+(12, 'DENIED BY WARDEN'),
+(13, 'DENIED BY CHIEF WARDEN'),
+(14, 'DENIED BY VC'),
+(15, 'DENIED BY REGISTRAR')
+
+ INSERT INTO students (student_id,student_name, mobile_no, fathers_name, fathers_mobile_no, address, email, password, room_number) VALUES(2100138,'Rahul Sharma', '9876543210', 'Rajesh Sharma', '9123456789', 'Delhi, India', 'rahul.sharma@example.com', 'password123', 101),(2100345,'Priya Patel', '8765432109', 'Manoj Patel', '8912345678', 'Mumbai, India', 'priya.patel@example.com', 'password456', 102),(2345565,'Amit Kumar', '7654321098', 'Vinod Kumar', '7812345678', 'Kolkata, India', 'amit.kumar@example.com', 'password789', 103);
+
+ INSERT INTO employees (employee_name, mobile_no, email, password, role_id) VALUES ('Ravi Mehta', '9876543211', 'ravi.mehta@example.com', 'admin123', 1),('Sunita Singh', '8765432110', 'sunita.singh@example.com', 'chief123', 2),('Anil Gupta', '7654321109', 'anil.gupta@example.com', 'admin456', 3);
+
+INSERT INTO issues (student_id, issue_title, issue_description, status_code) VALUES
+    ->  (2100138, 'Water Shortage', 'There is no water supply in the morning.', 1),(2100345, 'Food Quality', 'The food served in the mess is not up to  mark.', 1),(2345565, 'Electricity Issue', 'Frequent power cuts during study hours.',2);
+
+ INSERT INTO report_status (issue_id, employee_id, status_code) VALUES(7, 1, 1),(8, 2, 2),(9, 3, 2);
+
+ INSERT INTO issue_comments (issue_id, employee_id, comment_text) VALUES(8, 1, 'We are looking into the water supply issue and will resolve it soon.'),(7, 2, 'The mess committee is working on improving the food quality.'),(9, 3, 'The electrician has been informed about the frequent power cuts.');
