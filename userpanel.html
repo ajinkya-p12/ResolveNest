@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResolveNest</title>
+    <link rel="stylesheet" href="userpanel.css">
+
+    <link rel="icon" href="../adminpanel/project/logo-1.jpg" type="image/png">
+</head>
+<body>
+	<div class="wrapper">
+    <div class="sidebar">
+        <img src="../logo-1.jpg" alt="Logo" width="100" height="100">
+        
+
+        <ul>
+            <li><a href="userpanel.html">DASHBOARD</a></li>
+
+            <li><a href="useraddreport.html">ADD REPORT</a></li>
+
+            <li><a href="status.html">STATUS</a></li>
+
+            <li><a onclick="logout()" href="userlogin.html">LOGOUT</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="navbar">
+            <img src="../logo-2.jpg" alt="Logo" width="200" height="70">
+
+			<ul class="nav-ul">
+				<div class="nav-list">
+					<li>NAME :</li><span>DIYA ASNANI</span>
+				</div>
+				<div class="border"></div>
+				<div class="nav-list">
+					<li>SCHOLAR NO:</li><span>2100138</span>
+				</div>
+				<div class="border"></div>
+				<div class="nav-list">
+					<li>ROOM NO:</li><span>417</span>
+				</div>
+			</ul>
+        </div>
+		</div>
+        <script>
+           	document.addEventListener('DOMContentLoaded', () => {
+			function logout(){
+				alert("Logged out successfully.");
+			}
+            const path = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === path) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        </script>
+</body>
+</html>

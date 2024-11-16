@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User</title>
+    <link rel="stylesheet" href="deleteuser.css">
+    <link rel="icon" href="logo-1.jpg" type="image/png">
+</head>
+<body>
+	<div class="wrapper">
+
+
+    <div class="sidebar">
+        
+        <img src="../logo-1.jpg" alt="Logo" width="100" height="100">
+        <ul>
+            <li><a href="adminpanel.html">DASHBOARD</a></li>
+            <li><a href="CreateUser.html">CREATE USER</a></li>
+            <li><a href="deleteuser.html">DELETE USER</a></li>
+            <li><a href="adminlogin.html" onclick="logout()">LOGOUT</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="navbar">
+            
+            <img src="../logo-2.jpg" alt="Logo" width="200" height="70">
+            <ul class="nav-ul">
+				<div class="nav-list">
+					<li>NAME :</li><span>DIYA ASNANI</span>
+				</div>
+                <div class="border"></div>
+				<div class="nav-list">
+					<li>SCHOLAR NO:</li><span>2100138</span>
+				</div>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>DELETE USER</h2>
+            <div class="container">
+                <form id="deleteUserForm">
+					<div class="name">
+
+						<label for="studentName">STUDENT NAME</label>
+						<input type="text" id="studentName" name="studentName" required><br>
+					</div>
+<div class="name">
+
+	<label for="scholarNo">SCHOLAR NO.</label>
+	<input type="text" id="scholarNo" name="scholarNo" required>
+</div>
+
+                    <div class="button-class">
+                        <button type="submit"><a href="adminpanel.html">DELETE</a></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+	</div>
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+			function logout(){
+				alert("Logged out successfully.");
+			}
+            const path = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.sidebar a');
+
+            links.forEach(link => {
+                if (link.getAttribute('href') === path) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
